@@ -30,6 +30,13 @@ export default function SearchBar() {
     );
   };
 
+  const customNoOptions = () => {
+    if (inputValue.length < 1) {
+      return "Start typing to search for an Anime";
+    }
+    return "This Anime wasn't found";
+  };
+
   return (
     <div>
       <p>Search here</p>
@@ -41,7 +48,8 @@ export default function SearchBar() {
         loadOptions={fetchData}
         onInputChange={handleInputChange}
         onChange={handleChange}
-        filterOption={createFilter({ ignoreAccents: false })}
+        filterOption={customFilterOption}
+        noOptionsMessage={customNoOptions}
       />
     </div>
   );
