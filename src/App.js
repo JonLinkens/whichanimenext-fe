@@ -20,14 +20,18 @@ function App() {
   return (
     <div>
       <p>whichanimenext?</p>
-      <SearchBar />
+      {/* <SearchBar />
       {recdata && (
         <div>
           {recdata.map((rec) => (
             <AnimeCard key={rec.id} {...rec} />
           ))}
         </div>
-      )}
+      )} */}
+      <AnimeCard id={20} name={"Naruto"} match={52.39} />
+      <AnimeCard id={20} name={"Naruto"} match={52.39} />
+
+      <AnimeCard id={20} name={"Naruto"} match={52.39} />
     </div>
   );
 }
