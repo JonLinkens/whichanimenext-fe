@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import SearchBar from "./components/SearchBar";
+import AnimeCard from "./components/AnimeCard";
 import { useStore } from "./store";
 
 function App() {
@@ -23,11 +24,7 @@ function App() {
       {recdata && (
         <div>
           {recdata.map((rec) => (
-            <div key={rec.id}>
-              <p>
-                {rec.name} : {rec.match}%
-              </p>
-            </div>
+            <AnimeCard key={rec.id} {...rec} />
           ))}
         </div>
       )}
