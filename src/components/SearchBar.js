@@ -1,14 +1,13 @@
 import { useState } from "react";
 import AsyncSelect from "react-select/async";
-import { createFilter } from "react-select";
+import { useStore } from "../store";
 
 export default function SearchBar() {
-  const [options, setOptions] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  const [selectedValue, setSelectedValue] = useState(null);
+  const [selectedValue, setSelectedValue] = useState("");
 
   const fetchData = () => {
-    return fetch("http://localhost:8000/get/anime")
+    return fetch(`${process.env.REACT_APP_API_URL}/get/anime`)
       .then((response) => response.json())
       .then((data) => data.names);
   };
@@ -37,6 +36,17 @@ export default function SearchBar() {
     return "This Anime wasn't found";
   };
 
+  const set_searchquery = useStore((state) => state.set_searchquery);
+  // const toggle_display_anime = useStore((state) => state.toggle_display_anime);
+  const set_display_anime = useStore((state) => state.set_display_anime);
+
+  const SubmitHandler = () => {
+    if (selectedValue.value) {
+      set_searchquery(selectedValue.value);
+      set_display_anime(true);
+    }
+  };
+
   return (
     <div>
       <p>Search here</p>
@@ -51,6 +61,7 @@ export default function SearchBar() {
         filterOption={customFilterOption}
         noOptionsMessage={customNoOptions}
       />
+      <button onSubmit={SubmitHandler()}>Search</button>
     </div>
   );
 }
