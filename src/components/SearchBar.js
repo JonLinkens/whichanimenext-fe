@@ -60,8 +60,8 @@ export default function SearchBar() {
         onChange={handleChange}
         filterOption={customFilterOption}
         noOptionsMessage={customNoOptions}
+        onSubmit={SubmitHandler()}
       />
-      <button onSubmit={SubmitHandler()}>Search</button>
     </div>
   );
 }
