@@ -4,7 +4,6 @@ import { useStore } from "./store";
 
 function App() {
   const [recdata, setRecdata] = useState(undefined);
-  const [candisplay, setCandisplay] = useState(false);
 
   const display_anime = useStore((state) => state.display_anime);
   const searchquery = useStore((state) => state.searchquery);
@@ -13,12 +12,7 @@ function App() {
     if (display_anime) {
       fetch(`${process.env.REACT_APP_API_URL}/recommend/${searchquery}`)
         .then((response) => response.json())
-        .then((data) => setRecdata(data.anime))
-        .then(
-          setTimeout(() => {
-            setCandisplay(true);
-          }, 1200)
-        );
+        .then((data) => setRecdata(data.anime));
     }
   }, [display_anime, searchquery]);
 
@@ -26,7 +20,7 @@ function App() {
     <div>
       <p>whichanimenext?</p>
       <SearchBar />
-      {candisplay && (
+      {recdata && (
         <div>
           {recdata.map((rec) => (
             <div key={rec.id}>
