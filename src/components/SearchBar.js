@@ -59,6 +59,7 @@ export default function SearchBar() {
         filterOption={customFilterOption}
         noOptionsMessage={customNoOptions}
         onSubmit={SubmitHandler()}
+        placeholder="Search for an anime..."
       />
     </div>
   );
