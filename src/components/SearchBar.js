@@ -31,7 +31,7 @@ export default function SearchBar() {
 
   const customNoOptions = () => {
     if (inputValue.length < 1) {
-      return "Start typing to search for an Anime";
+      return "Start typing to search for an Anime. Make sure the title is the same as found on MyAnimeList!";
     }
     return "This Anime wasn't found";
   };
@@ -49,7 +49,6 @@ export default function SearchBar() {
 
   return (
     <div>
-      <p>Search here</p>
       <AsyncSelect
         cacheOptions
         value={selectedValue}
