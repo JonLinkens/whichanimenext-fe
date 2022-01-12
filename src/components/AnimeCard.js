@@ -1,114 +1,51 @@
-import { useEffect, useState } from "react";
-import styled from "styled-components";
-import PercentagePie from "./PercentagePie";
-
-export default function AnimeCard({ id, name, match }) {
-  const [animedata, setAnimeData] = useState(undefined);
-
-  useEffect(() => {
-    fetch(`https://api.jikan.moe/v3/anime/${id}`)
-      .then((response) => response.json())
-      .then((data) => setAnimeData(data));
-  });
+export default function AnimeCard({
+  id,
+  name,
+  image_url,
+  aired_from,
+  aired_to,
+  synopsis,
+  match,
+}) {
+  function match_to_HSL(match) {
+    // boosting values a bit to show colours!
+    return ["hsl(", match + 40, ",100%,35%)"].join("");
+  }
 
   return (
-    <>
-      {animedata && (
-        <Card>
-          <Link href={animedata.url}>
-            <Thumbnail>
-              <Image>
-                <PercentagePie percentage={match} />
-              </Image>
-            </Thumbnail>
-            <CardText>
-              <LeftThumb
-                style={{ backgroundImage: `url(${animedata.image_url})` }}
-              />
-              <TitleTotal>
-                <Extra>
-                  {animedata.aired.prop.from.year} {" - "}
-                  {animedata.aired.prop.to.year}
-                </Extra>
-                <Name>{name}</Name>
+    <div className="m-2">
+      <div className="w-full lg:max-w-full lg:flex shadow-sm">
+        <div
+          className="h-48 lg:h-auto lg:w-48 flex-none bg-cover rounded-t lg:rounded-t-none lg:rounded-l text-center overflow-hidden"
+          style={{ backgroundImage: `url(${image_url})` }}
+        ></div>
+        <div className="border-r border-b border-l border-gray-200 lg:border-l-0 lg:border-t lg:border-gray-200 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
+          <div className="mb-8">
+            <div className="flex justify-between">
+              <div className="text-gray-900 font-bold text-xl mb-2">{name}</div>
 
-                <Synopsis>
-                  {animedata.synopsis.match(/[^.!?]+[.!?]+/g).slice(0, 2)}
-                </Synopsis>
-              </TitleTotal>
-            </CardText>
-          </Link>
-        </Card>
-      )}
-    </>
+              {aired_from === aired_to ||
+              aired_to === undefined ||
+              aired_to === null ? (
+                <div className="text-indigo-900 font-bold text-xl mb-2 mr-10">
+                  {aired_from}
+                </div>
+              ) : (
+                <div className="text-indigo-900 font-bold text-xl mb-2 mr-10">
+                  {aired_from} - {aired_to}
+                </div>
+              )}
+            </div>
+            <p className="text-gray-700 text-base">
+              {synopsis.match(/[^.!?]+[.!?]+/g).slice(0, 2)}
+            </p>
+          </div>
+          <p className="font-bold" style={{ color: `${match_to_HSL(match)}` }}>
+            {match}% match
+          </p>
+          <div className="flex items-center"></div>
+        </div>
+      </div>
+    </div>
   );
 }
-
-const Link = styled.a`
-  text-decoration: none;
-  color: inherit;
-`;
-
-const Card = styled.div`
-  background: #fff;
-  border-radius: 4px;
-  box-shadow: 0px 14px 80px rgba(34, 35, 58, 0.5);
-  max-width: 400px;
-  display: flex;
-  flex-direction: row;
-  border-radius: 25px;
-  position: relative;
-  margin: 1rem;
-`;
-
-const Name = styled.h2`
-  margin: 0;
-  padding: 0 1rem;
-`;
-
-const Extra = styled.div`
-  padding: 1rem;
-  text-align: right;
-  color: darkblue;
-  font-weight: bold;
-  font-size: 12px;
-`;
-
-const Synopsis = styled.div`
-  padding: 0.5rem 1rem;
-  font-size: 12px;
-`;
-
-const Thumbnail = styled.div`
-  width: 80px;
-  height: 80px;
-  position: absolute;
-  border-radius: 50%;
-  border: 6px solid white;
-  background: white;
-  top: 15px;
-  left: 85px;
-`;
-
-const Image = styled.div`
-  width: 100%;
-  text-align: center;
-`;
-
-const CardText = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-`;
-
-const TitleTotal = styled.div`
-  padding: 2.5em 1.5em 1.5em 1.5em;
-`;
-
-const LeftThumb = styled.div`
-  width: 100%;
-  height: 100%;
-  border-top-left-radius: 20px;
-  border-bottom-left-radius: 20px;
-  background-position: bottom center;
-  background-size: cover;
-`;
