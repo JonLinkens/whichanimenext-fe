@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import SearchBar from "./components/SearchBar";
 import AnimeCard from "./components/AnimeCard";
+import Footer from "./components/Footer";
 import { useStore } from "./store";
 
 function App() {
@@ -23,8 +24,17 @@ function App() {
       style={{ backgroundImage: "url('manga_collage8.png')" }}
     >
       <div className="pt-5">
-        <div className="justify-center max-w-screen-lg mx-auto px-2">
-          <p>whichanimenext?</p>
+        <div className=" justify-center max-w-screen-lg mx-auto px-2">
+          <div className="text-center mb-4 select-none">
+            <h1
+              className="font-slenco text-4xl md:text-5xl 
+            text-transparent bg-clip-text 
+            bg-gradient-to-r from-indigo-600 to-sky-400
+            "
+            >
+              whichanimenext?
+            </h1>
+          </div>
 
           <SearchBar className="min-w-full " />
           {recdata === -1 ? (
@@ -32,10 +42,7 @@ function App() {
           ) : (
             [
               recdata && (
-                <div className="m-10 ">
-                  <h2 className="text-center mb-2 text-3xl ">
-                    Because you watched {searchquery}:
-                  </h2>
+                <div className="m-10 " key={1}>
                   <div className=" flex flex-wrap justify-center">
                     {recdata.map((rec) => (
                       <AnimeCard key={rec.id} {...rec} />
@@ -47,6 +54,13 @@ function App() {
           )}
         </div>
       </div>
+      {recdata ? (
+        <Footer />
+      ) : (
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
+          <Footer />
+        </div>
+      )}
     </div>
   );
 }

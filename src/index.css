@@ -17,3 +17,21 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+@layer base {
+  @font-face {
+    font-family: "Slenco";
+    src: url("../public/Slenco.otf") format("otf");
+  }
+}
+
+/* FONTS ============== */
+
+/* Lato */
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+
+/* Overpass */
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Overpass&display=swap");
+
+/* Roboto */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");

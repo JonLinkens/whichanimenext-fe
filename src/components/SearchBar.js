@@ -37,7 +37,6 @@ export default function SearchBar() {
   };
 
   const set_searchquery = useStore((state) => state.set_searchquery);
-  // const toggle_display_anime = useStore((state) => state.toggle_display_anime);
   const set_display_anime = useStore((state) => state.set_display_anime);
 
   const SubmitHandler = () => {
