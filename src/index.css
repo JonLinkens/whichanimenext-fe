@@ -19,7 +19,7 @@ code {
 @layer base {
   @font-face {
     font-family: "Slenco";
-    src: url("../public/Slenco.otf") format("otf");
+    src: url("../public/Slenco.woff2") format("woff2");
   }
 }
 
